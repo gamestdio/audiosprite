@@ -8,12 +8,13 @@ import glob from 'glob';
 import ffmpegPath from 'ffmpeg-static';
 
 export type AudioFormat = 'aiff' | 'wav' | 'ac3' | 'mp3' | 'mp4' | 'm4a' | 'ogg' | 'opus' | 'webm';
+export type OutputFormat = 'default' | 'howler' | 'howler2' | 'jukebox' | 'createjs';
 
 export type AudioSpriteOptions = {
   output?: string,
   path?: string,
   export?: string | AudioFormat[],
-  format?: string,
+  format?: OutputFormat,
   autoplay?: boolean,
   loop?: string[],
   silence?: number,
@@ -37,7 +38,7 @@ const defaults: AudioSpriteOptions = {
   output: 'output',
   path: '',
   export: 'ogg,m4a,mp3,ac3',
-  format: undefined,
+  format: 'default',
   autoplay: undefined,
   loop: [],
   silence: 0,
@@ -76,7 +77,7 @@ export default function (files: string[], options?: AudioSpriteOptions): Promise
     }
 
     let offsetCursor = 0
-    const wavArgs = ['-ar', options.samplerate.toString(), '-ac', options.channels.toString(), '-f', 's16le']
+    const wavArgs = ['-ar', `${options.samplerate}`, '-ac', `${options.channels}`, '-f', 's16le']
     const tempFile = mktemp('audiosprite')
 
     options.logger.debug('Created temporary file', { file: tempFile })
