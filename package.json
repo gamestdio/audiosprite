@@ -1,6 +1,12 @@
 {
   "name": "@gamestdio/audiosprite",
   "description": "Concat small audio files into single file and export in many formats.",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "mocha",
+    "prepublishOnly": "npm run build"
+  },
   "keywords": [
     "audio",
     "audio-sprite",
@@ -8,20 +14,24 @@
     "ffmpeg"
   ],
   "author": "Tõnis Tiigi <tonistiigi@gmail.com>",
-  "version": "0.7.2",
+  "contributors": [
+    "Endel Dreyer <endel.dreyer@gmail.com>"
+  ],
+  "version": "0.8.0",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://raw.githubusercontent.com/tonistiigi/audiosprite/master/LICENSE"
+      "url": "https://raw.githubusercontent.com/gamestdio/audiosprite/master/LICENSE"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/tonistiigi/audiosprite.git"
+    "url": "git://github.com/gamestdio/audiosprite.git"
   },
-  "main": "./audiosprite.js",
+  "main": "./lib/audiosprite.js",
+  "types": "./lib/audiosprite.d.ts",
   "bin": {
-    "audiosprite": "./cli.js"
+    "audiosprite": "./lib/cli.js"
   },
   "dependencies": {
     "async": "~0.9.0",
@@ -33,12 +43,13 @@
     "winston": "~1.0.0"
   },
   "devDependencies": {
-    "mocha": "~2.2.4"
+    "@types/async": "^3.2.13",
+    "@types/glob": "^7.2.0",
+    "@types/underscore": "^1.11.4",
+    "mocha": "~2.2.4",
+    "typescript": "^4.7.2"
   },
   "engines": {
     "node": ">=0.10"
-  },
-  "scripts": {
-    "test": "mocha"
   }
 }

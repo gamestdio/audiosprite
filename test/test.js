@@ -3,7 +3,7 @@ var assert = require('assert')
   , path = require('path')
   , spawn = require('child_process').spawn
 
-var AUDIOSPRITE_PATH = path.join(__dirname, '../', 'cli.js')
+var AUDIOSPRITE_PATH = path.join(__dirname, '..', 'lib', 'cli.js')
   , OUTPUT = 'audiosprite-test-out' + ~~(Math.random() * 1e6)
 
 var tmpdir = require('os').tmpdir() || '.'
@@ -37,7 +37,7 @@ describe('audiosprite', function() {
       , path.join(__dirname, 'sounds/beep.mp3')
       , path.join(__dirname, 'sounds/boop.wav')
       ])
-	
+
 	  checkOutput(audiosprite, done)
   });
 
@@ -58,7 +58,7 @@ describe('audiosprite', function() {
       , path.join(__dirname, 'sounds/*.mp3')
       , path.join(__dirname, 'sounds/*.wav')
       ])
-	
+
 	  checkOutput(audiosprite, done)
   });
 

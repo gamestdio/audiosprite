@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-var fs = require('fs')
-var _ = require('underscore')._
-var winston = require('winston')
+import fs from 'fs';
+import _ from 'underscore';
+import winston from 'winston';
 
-var audiosprite = require('./audiosprite')
+import audiosprite from './audiosprite';
 
-var optimist = require('optimist')
+const optimist = require('optimist')
   .options('output', {
     alias: 'o'
   , 'default': 'output'
@@ -143,13 +143,16 @@ if (argv.help || !files.length) {
   process.exit(1)
 }
 
-audiosprite(files, opts, function(err, obj) {
-  if (err) {
+(async function() {
+  try {
+    const obj = await audiosprite(files, opts);
+    var jsonfile = opts.output + '.json'
+    fs.writeFileSync(jsonfile, JSON.stringify(obj, null, 2))
+    winston.info('Exported json OK', { file: jsonfile })
+    winston.info('All done')
+
+  } catch (err) {
     winston.error(err)
-    process.exit(0)
+    process.exit(1)
   }
-  var jsonfile = opts.output + '.json'
-  fs.writeFileSync(jsonfile, JSON.stringify(obj, null, 2))
-  winston.info('Exported json OK', { file: jsonfile })
-  winston.info('All done')
-})
+})();
