@@ -1,5 +1,6 @@
 {
   "name": "@gamestdio/audiosprite",
+  "version": "0.8.1",
   "description": "Concat small audio files into single file and export in many formats.",
   "scripts": {
     "build": "tsc",
@@ -17,7 +18,6 @@
   "contributors": [
     "Endel Dreyer <endel.dreyer@gmail.com>"
   ],
-  "version": "0.8.0",
   "licenses": [
     {
       "type": "MIT",

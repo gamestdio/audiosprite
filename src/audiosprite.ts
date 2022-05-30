@@ -10,23 +10,23 @@ import ffmpegPath from 'ffmpeg-static';
 export type AudioFormat = 'aiff' | 'wav' | 'ac3' | 'mp3' | 'mp4' | 'm4a' | 'ogg' | 'opus' | 'webm';
 
 export type AudioSpriteOptions = {
-  output: string,
-  path: string,
-  export: string | AudioFormat[],
+  output?: string,
+  path?: string,
+  export?: string | AudioFormat[],
   format?: string,
   autoplay?: boolean,
-  loop: string[],
-  silence: number,
-  gap: number,
-  minlength: number,
-  bitrate: 32 | 64 | 96 | 128 | 160 | 192 | 256 | 320,
-  vbr: number,
-  'vbr:vorbis': number,
-  samplerate: number,
-  channels: number,
-  rawparts: string | string[],
-  ignorerounding: number,
-  logger: {
+  loop?: string[],
+  silence?: number,
+  gap?: number,
+  minlength?: number,
+  bitrate?: 32 | 64 | 96 | 128 | 160 | 192 | 256 | 320,
+  vbr?: number,
+  'vbr:vorbis'?: number,
+  samplerate?: number,
+  channels?: number,
+  rawparts?: string | string[],
+  ignorerounding?: number,
+  logger?: {
     debug: Function,
     info: Function,
     log: Function
@@ -203,8 +203,7 @@ export default function (files: string[], options?: AudioSpriteOptions): Promise
     }
 
     function appendSilence(duration, dest, cb) {
-      var buffer = new Buffer(Math.round(options.samplerate * 2 * options.channels * duration))
-      buffer.fill(0)
+      var buffer = Buffer.alloc(Math.round(options.samplerate * 2 * options.channels * duration), 0);
       var writeStream = fs.createWriteStream(dest, { flags: 'a' })
       writeStream.end(buffer)
       writeStream.on('close', function() {
