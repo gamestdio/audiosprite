@@ -1,6 +1,6 @@
 {
   "name": "@gamestdio/audiosprite",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "description": "Concat small audio files into single file and export in many formats.",
   "scripts": {
     "build": "tsc",

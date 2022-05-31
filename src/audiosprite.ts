@@ -10,7 +10,7 @@ import ffmpegPath from 'ffmpeg-static';
 export type AudioFormat = 'aiff' | 'wav' | 'ac3' | 'mp3' | 'mp4' | 'm4a' | 'ogg' | 'opus' | 'webm';
 export type OutputFormat = 'default' | 'howler' | 'howler2' | 'jukebox' | 'createjs';
 
-interface ReturnOuput {
+export interface AudioSpriteOutput {
   default: {
     resources: string[],
     spritemap: { [name: string]: { start: number, end: number, loop: boolean } };
@@ -80,7 +80,7 @@ const defaults: AudioSpriteOptions<'default'> = {
   }
 }
 
-export default function <F extends keyof ReturnOuput> (files: string[], options?: AudioSpriteOptions<F>): Promise<ReturnOuput[F]> {
+export default function <F extends keyof AudioSpriteOutput> (files: string[], options?: AudioSpriteOptions<F>): Promise<AudioSpriteOutput[F]> {
   return new Promise((resolve, reject) => {
 
     if (!files || !files.length) {
@@ -104,7 +104,7 @@ export default function <F extends keyof ReturnOuput> (files: string[], options?
 
     options.logger.debug('Created temporary file', { file: tempFile })
 
-    const json: ReturnOuput['default'] = {
+    const json: AudioSpriteOutput['default'] = {
       resources: [],
       spritemap: {}
     }
