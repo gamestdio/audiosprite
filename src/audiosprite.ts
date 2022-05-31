@@ -10,11 +10,33 @@ import ffmpegPath from 'ffmpeg-static';
 export type AudioFormat = 'aiff' | 'wav' | 'ac3' | 'mp3' | 'mp4' | 'm4a' | 'ogg' | 'opus' | 'webm';
 export type OutputFormat = 'default' | 'howler' | 'howler2' | 'jukebox' | 'createjs';
 
-export type AudioSpriteOptions = {
+interface ReturnOuput {
+  default: {
+    resources: string[],
+    spritemap: { [name: string]: { start: number, end: number, loop: boolean } };
+    autoplay?: string;
+  },
+  howler: {
+    urls: string;
+    sprite: { [name: string]: [number, number, boolean]};
+  },
+  howler2: {
+    src: string;
+    sprite: { [name: string]: [number, number, boolean]};
+  },
+  createjs: {
+    src: string;
+    data: {
+      audioSprite: Array<{id: string, startTime: number, duration: number}>
+    };
+  }
+};
+
+export type AudioSpriteOptions<F> = {
   output?: string,
   path?: string,
   export?: string | AudioFormat[],
-  format?: OutputFormat,
+  format?: F,
   autoplay?: boolean,
   loop?: string[],
   silence?: number,
@@ -34,7 +56,7 @@ export type AudioSpriteOptions = {
   }
 }
 
-const defaults: AudioSpriteOptions = {
+const defaults: AudioSpriteOptions<'default'> = {
   output: 'output',
   path: '',
   export: 'ogg,m4a,mp3,ac3',
@@ -58,7 +80,7 @@ const defaults: AudioSpriteOptions = {
   }
 }
 
-export default function (files: string[], options?: AudioSpriteOptions): Promise<any> {
+export default function <F extends keyof ReturnOuput> (files: string[], options?: AudioSpriteOptions<F>): Promise<ReturnOuput[F]> {
   return new Promise((resolve, reject) => {
 
     if (!files || !files.length) {
@@ -82,7 +104,7 @@ export default function (files: string[], options?: AudioSpriteOptions): Promise
 
     options.logger.debug('Created temporary file', { file: tempFile })
 
-    const json: any = {
+    const json: ReturnOuput['default'] = {
       resources: [],
       spritemap: {}
     }
