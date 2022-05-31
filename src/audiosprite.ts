@@ -32,7 +32,7 @@ interface ReturnOuput {
   }
 };
 
-export type AudioSpriteOptions<F> = {
+export type AudioSpriteOptions<F='default'> = {
   output?: string,
   path?: string,
   export?: string | AudioFormat[],
@@ -56,7 +56,7 @@ export type AudioSpriteOptions<F> = {
   }
 }
 
-const defaults: AudioSpriteOptions<'default'> = {
+const defaults: AudioSpriteOptions = {
   output: 'output',
   path: '',
   export: 'ogg,m4a,mp3,ac3',
