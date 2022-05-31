@@ -14,7 +14,7 @@ interface ReturnOuput {
   default: {
     resources: string[],
     spritemap: { [name: string]: { start: number, end: number, loop: boolean } };
-    autoplay?: string;
+    autoplay?: boolean | string;
   },
   howler: {
     urls: string;
